@@ -1,0 +1,8 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ product.prodname }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ product.price }} USD</h6>
+      <p class="card-text">{{ product.description|truncatewords:10 }}</p>
+      <a href="{{ product.get_absolute_url }}" class="card-link">Подробнее о товаре</a>
+      </div>
+  </div>

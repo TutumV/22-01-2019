@@ -1,0 +1,15 @@
+{% extends 'app/base_app.html' %}
+
+{% block title %}
+    Category list - {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+    <h1 class="mb-5">Category:</h1>
+    {{ category.title }}
+    {% for iter in category %}
+        <h3><a href="{{ category.get_absolute_url }}">{{ iter.title }}</a></h3>
+    {% endfor %}
+
+{% endblock %}

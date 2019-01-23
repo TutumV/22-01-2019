@@ -1,0 +1,32 @@
+{% extends 'app/base_app.html' %}
+
+{% block title %}
+    {{ product.prodname }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-md-12">
+                <h3 class="text-center text-info">
+                {{ product.prodname }}
+                </h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <dl>
+                                <dt>Описание: {{ product.description }}</dt>
+                                <dd>Цена: {{ product.price }} USD</dd>
+                                <dt>В наличии: {{ product.presence }}</dt>
+                                <dd>Характеристики</dd>
+                                <dd>Оперативная система: {{ product.os_name}}</dd>
+                                <dt>Диагональ: {{ product.diagonal }}</dt>
+                                <dd>Оперативная память: {{ product.ram }}</dd>
+                                <dt>Ёмкость жёстких дисков: {{ product.memory }}</dt>
+                                <dd>Графический адаптер: {{ product.vcard }}</dd>
+                                <dt>Категория: {% for iter in product.categories.all %} {{ iter.title }}{% endfor %}</dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
