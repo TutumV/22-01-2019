@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block content %}
+
     <h1 class="mb-5">Product with "{{ category.title|title }}" category:</h1>
 
-    {% for i in Сategory.object.all %}
+    {% for product in category.products.all %}
         {% include 'app/includes/product_card.html' %}
     {% endfor %}
 
 
-{% endblock %}
+{% endblock %}  

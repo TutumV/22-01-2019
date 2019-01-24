@@ -89,5 +89,7 @@ class CategoryDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
 
 
 def category_list(request):
-    category = Category.objects.all()
-    return render(request, 'app/category_list.html', context={'category': category})
+    categories = Category.objects.all()
+
+
+    return render(request, 'app/category_list.html', context={'categories': categories})

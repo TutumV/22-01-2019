@@ -25,7 +25,6 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-
     class Meta:
         ordering = ['title']
 
@@ -33,7 +32,7 @@ class Category(models.Model):
 class Product(models.Model):
     prodname = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=150, blank=True, unique=True)
-    categories = models.ManyToManyField('Category')
+    categories = models.ManyToManyField('Category', related_name='products')
     presence = models.BooleanField(default=False)
     description = models.TextField(blank=True)
     price = models.FloatField()
