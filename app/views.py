@@ -3,8 +3,8 @@ from django.views.generic import View
 from .utils import *
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import  Product, Category
-from .forms import CategoryForm, ProductForm
+from .models import  Product, Category, Delivery, Shop
+from .forms import CategoryForm, ProductForm, DeliveryForm, ShopForm
 from django.db.models import Q
 
 
@@ -17,7 +17,7 @@ def main_page(request):
     else:
         product = Product.objects.all()
 
-    paginator = Paginator(product, 10)
+    paginator = Paginator(product, 4)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -88,8 +88,50 @@ class CategoryDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
     raise_exception = True
 
 
+class DeliveryCreate(ObjectCreateMixin,View):
+    model_form = DeliveryForm
+    template = 'app/delivery_create.html'
+
+
+class DeliveryDetail(ObjectDetailMixin, View):
+    model = Delivery
+    template = 'app/delivery_detail.html'
+
+class DeliveryDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
+    model = Delivery
+    template = 'app/delivery_delete.html'
+    redirect_url = 'delivery_base_url'
+    raise_exception = True
+
+
+class ShopCreate(LoginRequiredMixin, ObjectCreateMixin,View):
+    model_form = ShopForm
+    template = 'app/shop_create.html' 
+    raise_exception = True
+
+
+class ShopDetail(ObjectDetailMixin, View):
+    model = Shop
+    template = 'app/shop_detail.html'
+
+
+class ShopDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
+    model = Shop
+    template = 'app/shop_delete.html'
+    redirect_url = 'shop_base_url'
+    raise_exception = True
+
+
+
 def category_list(request):
     categories = Category.objects.all()
-
-
     return render(request, 'app/category_list.html', context={'categories': categories})
+
+
+def delivery_base(request):
+    delivery = Delivery.objects.all()
+    return render(request, 'app/delivery_base.html', context={'delivery': delivery})
+    
+def shop_base(request):
+    bshop = Shop.objects.all()
+    return render(request, 'app/shop_base.html',context={'bshop': bshop})

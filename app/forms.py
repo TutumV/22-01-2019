@@ -1,5 +1,5 @@
 from django import forms
-from .models import Category, Product
+from .models import Category, Product, Shop, Delivery
 from django.core.exceptions import ValidationError
 
 
@@ -50,3 +50,27 @@ class ProductForm(forms.ModelForm):
         if new_slug == 'create':
             raise ValidationError('Slug may not be "Create"')
         return new_slug
+
+
+class DeliveryForm(forms.ModelForm):
+    class Meta:
+        model = Delivery
+        fields = ['shops', 'dproduct']
+
+        widgets = {
+            'shops': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'dproduct': forms.SelectMultiple(attrs={'class': 'form-control'})
+        }
+
+class ShopForm(forms.ModelForm):
+    class Meta:
+        model = Shop
+        fields = ['address', 'country', 'city', 'wtime', 'tdelivery']
+
+        widgets = {
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+            'country': forms.TextInput(attrs={'class': 'form-control'}),
+            'city': forms.TextInput(attrs={'class': 'form-control'}),
+            'wtime': forms.TextInput(attrs={'class': 'form-control'}),
+            'tdelivery': forms.NumberInput(attrs={'class': 'form-control'})
+        }

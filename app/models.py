@@ -53,6 +53,12 @@ class Product(models.Model):
     def get_delete_url(self):
         return reverse('product_delete_url', kwargs={'slug': self.slug})
 
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = gen_slug(self.prodname)
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return '{}'.format(self.prodname)
@@ -60,3 +66,44 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-relevance']
+
+
+class Delivery(models.Model):
+    slug = models.SlugField(max_length=150, blank=True, unique=True)
+    shops = models.ManyToManyField('Shop', related_name='deliveries')
+    dproduct = models.ManyToManyField('Product', related_name='orders')
+    drelevance = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('product_detail_url', kwargs={'slug': self.slug})
+
+    def get_delete_url(self):
+        return reverse('product_delete_url', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = gen_slug(self.shops + self.dproduct)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return '{}'.format(self.slug)
+
+class Shop(models.Model):
+    slug = models.SlugField(max_length=150, blank=True, unique=True)
+    address = models.CharField(max_length=150)
+    country = models.CharField(max_length=150)
+    city = models.CharField(max_length=150)
+    wtime = models.CharField(max_length=100)
+    tdelivery = models.IntegerField()
+
+    def get_absolute_url(self):
+        return reverse('shop_detail_url', kwargs={'slug': self.slug})
+
+    
+    def get_delete_url(self):
+        return reverse('shop_delete_url', kwargs={'slug': self.slug})
+
+    
+    def __str__(self):
+        return self.id
+

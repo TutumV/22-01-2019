@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Shop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,11 +20,27 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'main_page_url' %}">Product</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{% url 'category_list_url' %}">Category</a>
                 </li>
-            </ul>
-
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'shop_base_url' %}">Shop List</a>
+                </li>
+            {% if request.user.is_authenticated and request.user.is_staff %}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'product_create_url' %}">Add New Product</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'category_create_url' %}">Add New Category</a>
+                </li>
+                <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'delivery_base_url' %}">DeliveryBase</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'shop_create_url' %}">Add New Shop</a>
+                </li>
+            {% endif %}
+            </ul>  
 
             <form class="form-inline my-2 my-lg-0" action="{% url 'main_page_url' %}">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">

@@ -7,9 +7,8 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-5">Product:</h1>
-    {% for product in page_object.object_list %}
-        {% include 'app/includes/product_card.html' %}
-    {% endfor %}
-
+    <h1 class="text-center">Product:</h1>
+            {% for product in page_object.object_list %}
+                {% include 'app/includes/product_card.html' %}
+            {% endfor %}
 {% endblock %}

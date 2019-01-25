@@ -14,7 +14,7 @@
                 <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <dl>
+                                <h5 class="text-center"><dl>
                                 <dt>Описание: {{ product.description }}</dt>
                                 <dd>Цена: {{ product.price }} USD</dd>
                                 <dt>В наличии: {{ product.presence }}</dt>
@@ -25,8 +25,19 @@
                                 <dt>Ёмкость жёстких дисков: {{ product.memory }}</dt>
                                 <dd>Графический адаптер: {{ product.vcard }}</dd>
                                 <dt>Категория: {% for iter in product.categories.all %} {{ iter.title }}{% endfor %}</dt>
-                            </dl>
+                            </dl></h5>
                         </div>
                     </div>
                 </div>
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <ul class="list-unstyled">
+                <h5 class="text-center">
+                <li>
+                    <a href="/product/{{ product.slug }}/update/">Update Product Info</a>
+                </li>
+                <li>
+                    <a href="/product/{{ product.slug }}/delete/">Delete This Product</a>
+                </li></h5>
+                </ul>
+            {% endif %}
 {% endblock %}
