@@ -1,0 +1,10 @@
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{% for iter in  delivery.shops.all %} {{ iter.country }}{% endfor %}</h5>
+      <h5 class="card-title">{% for iter in  delivery.shops.all %} {{ iter.city }}{% endfor %}</h5>
+      <h5 class="card-title">{% for iter in  delivery.shops.all %} {{ iter.address }}{% endfor %}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{% for iter in delivery.delivery_product.all %}{{ iter.prodname }}{% endfor %}</h6>
+      <p class="card-text">{{ delivery.delivery_relevance }}</p>
+      <a href="{{ delivery.get_absolute_url }}" class="card-link">Подробнее о заказе</a>
+      </div>
+  </div>

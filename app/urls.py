@@ -12,11 +12,12 @@ urlpatterns = [
     path('product/<str:slug>/update/', ProductUpdate.as_view(), name='product_update_url'),
     path('product/<str:slug>/delete/', ProductDelete.as_view(), name='product_delete_url'),
     path('delivery/', delivery_base, name='delivery_base_url'),
-    path('delivery/<str:slug>/create', DeliveryCreate.as_view(), name='delivery_create_url'),
+    path('delivery/create', DeliveryCreate.as_view(), name='delivery_create_url'),
     path('delivery/<str:slug>/', DeliveryDetail.as_view(), name='delivery_detail_url'),
     path('delivery/<str:slug>/delete/', DeliveryDelete.as_view(), name='delivery_delete_url'),
     path('shop/', shop_base, name='shop_base_url'),
     path('shop/create', ShopCreate.as_view(), name='shop_create_url'),
     path('shop/<str:slug>/', ShopDetail.as_view(), name='shop_detail_url'),
+    path('shop/<str:slug>/update/', ShopUpdate.as_view(), name='shop_update_url'),
     path('shop/<str:slug>/delete/', ShopDelete.as_view(), name='shop_delete_url')
 ]

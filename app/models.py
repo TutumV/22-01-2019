@@ -40,7 +40,7 @@ class Product(models.Model):
     diagonal = models.FloatField()
     ram = models.IntegerField()
     memory = models.IntegerField()
-    vcard = models.CharField(max_length=100)
+    videocard = models.CharField(max_length=100)
     relevance = models.DateTimeField(auto_now_add=True)
 
 
@@ -71,18 +71,18 @@ class Product(models.Model):
 class Delivery(models.Model):
     slug = models.SlugField(max_length=150, blank=True, unique=True)
     shops = models.ManyToManyField('Shop', related_name='deliveries')
-    dproduct = models.ManyToManyField('Product', related_name='orders')
-    drelevance = models.DateTimeField(auto_now_add=True)
+    delivery_product = models.ManyToManyField('Product', related_name='orders')
+    delivery_relevance = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):
-        return reverse('product_detail_url', kwargs={'slug': self.slug})
+        return reverse('delivery_detail_url', kwargs={'slug': self.slug})
 
     def get_delete_url(self):
-        return reverse('product_delete_url', kwargs={'slug': self.slug})
+        return reverse('delivery_delete_url', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = gen_slug(self.shops + self.dproduct)
+            self.slug = gen_slug(self.delivery_relevance)
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -93,8 +93,8 @@ class Shop(models.Model):
     address = models.CharField(max_length=150)
     country = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
-    wtime = models.CharField(max_length=100)
-    tdelivery = models.IntegerField()
+    work_time = models.CharField(max_length=100)
+    time_delivery = models.IntegerField()
 
     def get_absolute_url(self):
         return reverse('shop_detail_url', kwargs={'slug': self.slug})
@@ -103,7 +103,12 @@ class Shop(models.Model):
     def get_delete_url(self):
         return reverse('shop_delete_url', kwargs={'slug': self.slug})
 
-    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = self.address + ' ' + self.city
+        super().save(*args, **kwargs)
+
+
     def __str__(self):
-        return self.id
+        return self.address
 

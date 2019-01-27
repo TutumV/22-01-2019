@@ -122,6 +122,12 @@ class ShopDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
     raise_exception = True
 
 
+class ShopUpdate(LoginRequiredMixin, ObjectUpdateMixin, View):
+    model = Shop
+    model_form = ShopForm
+    template = 'app/shop_update.html'
+    raise_exception = True
+
 
 def category_list(request):
     categories = Category.objects.all()
@@ -130,8 +136,32 @@ def category_list(request):
 
 def delivery_base(request):
     delivery = Delivery.objects.all()
-    return render(request, 'app/delivery_base.html', context={'delivery': delivery})
+    paginator = Paginator(delivery, 4)
+
+    page_number = request.GET.get('page', 1)
+    page = paginator.get_page(page_number)
+
+    is_paginated = page.has_other_pages()
+
+    if page.has_previous():
+        prev_url = '?page={}'.format(page.previous_page_number())
+    else:
+        prev_url = ''
+
+    if page.has_next():
+        next_url = '?page={}'.format(page.next_page_number())
+    else:
+        next_url = ''
+
+    context = {
+        'page_object': page,
+        'is_paginated': is_paginated,
+        'next_url': next_url,
+        'prev_url': prev_url
+    }
+
+    return render(request, 'app/delivery_base.html', context=context)
     
 def shop_base(request):
-    bshop = Shop.objects.all()
-    return render(request, 'app/shop_base.html',context={'bshop': bshop})
+    base_shop = Shop.objects.all()
+    return render(request, 'app/shop_base.html',context={'base_shop': base_shop})

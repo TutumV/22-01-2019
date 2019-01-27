@@ -28,7 +28,7 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['prodname', 'slug', 'categories', 'presence', \
-        'description', 'price', 'os_name', 'diagonal', 'ram', 'memory', 'vcard']
+        'description', 'price', 'os_name', 'diagonal', 'ram', 'memory', 'videocard']
 
         widgets = {
             'prodname': forms.TextInput(attrs={'class': 'form-control'}),
@@ -40,7 +40,8 @@ class ProductForm(forms.ModelForm):
             'diagonal': forms.NumberInput(attrs={'class': 'form-control'}),
             'ram': forms.NumberInput(attrs={'class': 'form-control'}),
             'memory': forms.NumberInput(attrs={'class': 'form-control'}),
-            'vcard': forms.TextInput(attrs={'class': 'form-control'})
+            'videocard': forms.TextInput(attrs={'class': 'form-control'})
+            
         }
 
 
@@ -55,22 +56,22 @@ class ProductForm(forms.ModelForm):
 class DeliveryForm(forms.ModelForm):
     class Meta:
         model = Delivery
-        fields = ['shops', 'dproduct']
+        fields = ['shops', 'delivery_product']
 
         widgets = {
             'shops': forms.SelectMultiple(attrs={'class': 'form-control'}),
-            'dproduct': forms.SelectMultiple(attrs={'class': 'form-control'})
+            'delivery_product': forms.SelectMultiple(attrs={'class': 'form-control'})
         }
 
 class ShopForm(forms.ModelForm):
     class Meta:
         model = Shop
-        fields = ['address', 'country', 'city', 'wtime', 'tdelivery']
+        fields = ['address', 'country', 'city', 'work_time', 'time_delivery']
 
         widgets = {
             'address': forms.TextInput(attrs={'class': 'form-control'}),
             'country': forms.TextInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'}),
-            'wtime': forms.TextInput(attrs={'class': 'form-control'}),
-            'tdelivery': forms.NumberInput(attrs={'class': 'form-control'})
+            'work_time': forms.TextInput(attrs={'class': 'form-control'}),
+            'time_delivery': forms.NumberInput(attrs={'class': 'form-control'})
         }

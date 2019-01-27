@@ -23,12 +23,19 @@
                                 <dt>Диагональ: {{ product.diagonal }}</dt>
                                 <dd>Оперативная память: {{ product.ram }}</dd>
                                 <dt>Ёмкость жёстких дисков: {{ product.memory }}</dt>
-                                <dd>Графический адаптер: {{ product.vcard }}</dd>
+                                <dd>Графический адаптер: {{ product.videocard }}</dd>
                                 <dt>Категория: {% for iter in product.categories.all %} {{ iter.title }}{% endfor %}</dt>
                             </dl></h5>
                         </div>
                     </div>
                 </div>
+                <ul class="list-unstyled">
+                <h5 class="text-center">
+                <li>
+                <a href="{% url 'delivery_create_url' %}">Купить</a>
+                </li>
+                </h5>
+                </ul>
                 {% if request.user.is_authenticated and request.user.is_staff %}
                 <ul class="list-unstyled">
                 <h5 class="text-center">

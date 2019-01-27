@@ -1,0 +1,28 @@
+{% extends 'app/base_app.html' %}
+
+{% block title %}
+    {{ product.prodname }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-md-12">
+                <h3 class="text-center text-info">
+                {% for iter in delivery.delivery_product.all %}{{ iter.price }}{% endfor %} USD
+                </h3>
+                <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-center"><dl>
+                                <dt>Страна доставки: {% for iter in delivery.shops.all %}{{ iter.country }}{% endfor %}</dt>
+                                <dd>Город доставки: {% for iter in delivery.shops.all %}{{ iter.city }}{% endfor %}</dd>
+                                <dt>Улица магазина: {% for iter in delivery.shops.all %}{{ iter.address }}{% endfor %}</dt>
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                                <a href="delete/">Заказ выполнен</a>
+                                {% endif %}
+                            </dl></h5>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}

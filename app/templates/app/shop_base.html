@@ -1,0 +1,22 @@
+{% extends 'app/base_app.html' %}
+
+
+
+{% block title %}
+    Shop Base
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Shop:</h1>
+            {% for iter in base_shop %}
+            <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h2 class="card-title">Страна: {{ iter.country }} Город:{{ iter.city }}</h2>
+                        <h3 class="card-title">Улица, Дом: {{ iter.address }}</h3>
+                        <h4 class="card-subtitle mb-2 text-muted">Время работы магазина: {{ iter.work_time }}</h4>
+                        <p class="card-text">Время доставки(в сутках): {{ iter.time_delivery }} </p>
+                        <a href="/shop/{{ iter.slug }}/" class="card-link">Подробнее о магазине</a>
+                    </div>
+                </div>
+            {% endfor %}
+{% endblock %}

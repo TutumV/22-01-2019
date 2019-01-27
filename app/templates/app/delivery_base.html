@@ -1,0 +1,14 @@
+{% extends 'app/base_app.html' %}
+
+
+
+{% block title %}
+    Delivery list
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Delivery:</h1>
+            {% for delivery in page_object.object_list %}
+                {% include 'app/includes/delivery_card.html' %}
+            {% endfor %}
+{% endblock %}

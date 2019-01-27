@@ -1,0 +1,29 @@
+{% extends 'app/base_app.html' %}
+
+{% block title %}
+    Shop - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-md-12">
+                <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-center"><dl>
+                                <dt>Страна доставки: {{ shop.country }}</dt>
+                                <dd>Город доставки: {{ shop.city }}</dd>
+                                <dd>Адресс магазина: {{ shop.address }}</dd>
+                                <dd>Время работы: {{ shop.work_time }}</dd>
+                                <dd>Время доставки(в сутках): {{ shop.time_delivery }}</dd>
+                                {% if request.user.is_authenticated and request.user.is_staff %}
+                                <a href="update/">Магазин изменил свои данные.</a>
+                                <p></p>
+                                <a href="delete/">Магазин не работает.</a>
+                                {% endif %}
+                            </dl></h5>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
