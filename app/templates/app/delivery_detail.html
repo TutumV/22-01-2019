@@ -18,6 +18,7 @@
                                 <dt>Страна доставки: {% for iter in delivery.shops.all %}{{ iter.country }}{% endfor %}</dt>
                                 <dd>Город доставки: {% for iter in delivery.shops.all %}{{ iter.city }}{% endfor %}</dd>
                                 <dt>Улица магазина: {% for iter in delivery.shops.all %}{{ iter.address }}{% endfor %}</dt>
+                                <a href="{% url 'main_page_url'%}">На главную</a>
                                 {% if request.user.is_authenticated and request.user.is_staff %}
                                 <a href="delete/">Заказ выполнен</a>
                                 {% endif %}

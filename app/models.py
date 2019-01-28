@@ -2,11 +2,16 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
 from time import time
+from uuid import uuid4
 
 
 def gen_slug(s):
     new_slug = slugify(s, allow_unicode=True)
     return new_slug + '-' + str(int(time()))
+
+
+def generateUUID():
+    return str(uuid4())
 
 
 class Category(models.Model):
@@ -69,7 +74,7 @@ class Product(models.Model):
 
 
 class Delivery(models.Model):
-    slug = models.SlugField(max_length=150, blank=True, unique=True)
+    slug = models.CharField(default=generateUUID, max_length=36, unique=True, editable=False)
     shops = models.ManyToManyField('Shop', related_name='deliveries')
     delivery_product = models.ManyToManyField('Product', related_name='orders')
     delivery_relevance = models.DateTimeField(auto_now_add=True)
@@ -80,13 +85,13 @@ class Delivery(models.Model):
     def get_delete_url(self):
         return reverse('delivery_delete_url', kwargs={'slug': self.slug})
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.slug = gen_slug(self.delivery_relevance)
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return '{}'.format(self.slug)
+
+
+    class Meta:
+        ordering = ['delivery_relevance']
 
 class Shop(models.Model):
     slug = models.SlugField(max_length=150, blank=True, unique=True)
