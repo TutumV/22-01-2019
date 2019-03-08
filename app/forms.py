@@ -41,7 +41,6 @@ class ProductForm(forms.ModelForm):
             'ram': forms.NumberInput(attrs={'class': 'form-control'}),
             'memory': forms.NumberInput(attrs={'class': 'form-control'}),
             'videocard': forms.TextInput(attrs={'class': 'form-control'})
-            
         }
 
 
